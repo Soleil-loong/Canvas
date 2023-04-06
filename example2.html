@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<canvas id="canvas" height="600" width="700"></canvas>
+<script>
+  const canvas = document.getElementById('canvas')
+  const ctx = canvas.getContext('2d')
+  ctx.beginPath()
+  ctx.arc(350, 300, 150, [(Math.PI) / 180] * 30, [(Math.PI) / 180] * 330)
+  ctx.lineTo(350, 300)
+  ctx.closePath()
+  ctx.fillStyle = '#ffd11f'
+  ctx.fill()
+  ctx.beginPath()
+  ctx.arc(380, 220, 20, 0, [(Math.PI) / 180] * 360)
+  ctx.closePath()
+  ctx.fillStyle = '#000'
+  ctx.fill()
+  ctx.beginPath()
+  ctx.arc(450, 300, 20, 0, [(Math.PI) / 180] * 360)
+  ctx.fillStyle = '#cfa500'
+  ctx.closePath()
+  ctx.fill()
+  ctx.beginPath()
+  ctx.arc(520, 300, 20, 0, [(Math.PI) / 180] * 360)
+  ctx.closePath()
+  ctx.fill()
+  ctx.beginPath()
+  ctx.arc(590, 300, 20, 0, [(Math.PI) / 180] * 360)
+  ctx.closePath()
+  ctx.fill()
+</script>
+</body>
+</html>

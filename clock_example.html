@@ -1,0 +1,94 @@
+<canvas id="canvas" height="800" width="900"></canvas>
+<script>
+  const canvas = document.getElementById('canvas')
+  const ctx = canvas.getContext('2d')
+  // 绘制时钟显示之前的文本提示：
+  ctx.font = '50px s'
+  ctx.textAlign = 'center'
+  ctx.strokeText('你即将看到时钟', 450, 400, 400)
+  // 绘制时钟：
+  function draw() {
+    // 获取当前时间：
+    const date = new Date()
+    // 获取当前秒：
+    let second = date.getSeconds()
+    // 获取当前分：
+    let minutes = date.getMinutes()
+    // 获取当前时：
+    let hour = date.getHours()
+    // 每次循环都要线清空画布
+    ctx.clearRect(0, 0, canvas.width, canvas.height)
+    ctx.save() // 保存状态1
+    ctx.translate(450, 400) // 移动画布原点
+    // 绘制时间刻度：
+    for (i = 0; i < 60; i++) {
+      ctx.save() // 保存状态2
+      ctx.beginPath()
+      ctx.rotate([(Math.PI) / 180] * 6 * i)
+      ctx.moveTo(0, -400)
+      ctx.lineTo(0, -380)
+      // 当刻度为5的整数倍的时候，加粗：
+      if (i % 5 == 0) {
+        // 绘制时钟上的时间刻度：
+        ctx.save() // 保存状态3
+        ctx.translate(0, -350)
+        ctx.rotate([-(Math.PI / 180)] * 6 * i)
+        ctx.font = '30px s'
+        ctx.textAlign = 'center'
+        ctx.textBaseline = 'middle'
+        ctx.fillText(`${i / 5 == 0 ? 12 : i / 5}`, 0, 0, 50) // 绘制出1-12刻度文字
+        ctx.restore() // 恢复状态3
+        // 让时间刻度为5的倍数的刻度加粗：
+        ctx.lineWidth = 5
+
+      }
+      ctx.stroke()
+      ctx.restore() // 恢复状态2
+    }
+    ctx.restore() // 恢复状态1
+    ctx.save() // 保存状态4
+    ctx.save() // 保存状态5
+    ctx.save() // 保存状态6
+    // 绘制时分秒针交点地方的小黑圆：
+    ctx.beginPath()
+    ctx.arc(450, 400, 400, 0, [(Math.PI) / 180] * 360)
+    ctx.stroke()
+    ctx.beginPath()
+    ctx.arc(450, 400, 5, 0, [(Math.PI) / 180] * 360)
+    ctx.fill()
+    // 画秒针：
+    ctx.beginPath()
+    ctx.translate(450, 400)
+    ctx.rotate([(Math.PI) / 180] * second * 6) // 换算秒针的旋转角度
+    ctx.moveTo(0, 0)
+    ctx.lineTo(0, -320)
+    ctx.strokeStyle = 'red'
+    ctx.stroke()
+    // 画时针：
+    ctx.restore() // 恢复状态6
+    ctx.beginPath()
+    ctx.translate(450, 400)
+    ctx.rotate([hour * (Math.PI) / 180] * 3600 * 1 / 120) // 换算秒时针的旋转角度
+    ctx.rotate([minutes * (Math.PI) / 180] * 1 / 2) // 换算秒时针的旋转角度
+    ctx.rotate([(Math.PI) / 180] * second * 1 / 120) // 换算秒时针的旋转角度
+    ctx.moveTo(0, 0)
+    ctx.lineTo(0, -100)
+    ctx.lineWidth = 8
+    ctx.stroke()
+    // 画分针：
+    ctx.restore() // 恢复状态5
+    ctx.beginPath()
+    ctx.translate(450, 400)
+    ctx.rotate((Math.PI) * 2 * minutes / 60) // 换算分针的旋转角度
+    ctx.rotate([(Math.PI) / 180] * second * 1 / 10) // 换算分针的旋转角度
+    ctx.moveTo(0, 0)
+    ctx.lineTo(0, -240)
+    ctx.lineWidth = 4
+    ctx.strokeStyle = 'blue'
+    ctx.stroke()
+    ctx.beginPath()
+    ctx.restore() // 恢复状态4
+    window.requestAnimationFrame(draw)
+  }
+  window.requestAnimationFrame(draw)
+</script>

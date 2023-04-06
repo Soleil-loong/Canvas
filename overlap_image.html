@@ -1,0 +1,26 @@
+<canvas id="canvas" height="600" width="700"></canvas>
+<script>
+  const canvas = document.getElementById('canvas');
+  const ctx = canvas.getContext('2d');
+  // 第一个天蓝色圆：
+  ctx.arc(350, 200, 200, 0, [(Math.PI) / 180] * 360)
+  ctx.fillStyle = 'skyblue'
+  ctx.globalCompositeOperation = 'source-over'
+  ctx.fill()
+
+  // 裁剪：
+  ctx.beginPath()
+  ctx.arc(350, 300, 200, 0, [(Math.PI) / 180] * 360)
+  ctx.clip()
+
+  // 第二个浅黄色圆：
+  ctx.beginPath()
+  ctx.arc(200, 400, 200, 0, [(Math.PI) / 180] * 360)
+  ctx.fillStyle = '#fffc96'
+  ctx.fill()
+  // 第三个粉色圆：
+  ctx.beginPath()
+  ctx.arc(500, 400, 200, 0, [(Math.PI) / 180] * 360)
+  ctx.fillStyle = 'pink'
+  ctx.fill()
+</script>

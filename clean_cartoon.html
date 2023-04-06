@@ -1,0 +1,25 @@
+<canvas id="canvas" height="600" width="700">您的浏览器不支持canvas！</canvas>
+<button id="clear">清除画布</button>
+<script>
+  const canvas = document.getElementById('canvas')
+  const clear = document.getElementById('clear')
+  const ctx = canvas.getContext('2d')
+  // 绘制文本：
+  const gradient = ctx.createRadialGradient(350, 300, 100, 350, 300, 500)
+  gradient.addColorStop(1, 'yellow')
+  gradient.addColorStop(0, 'skyblue')
+  ctx.font = '80px Verdana'
+  ctx.textAlign = 'center'
+  ctx.strokeStyle = gradient
+  ctx.lineWidth = 3.5
+  ctx.strokeText('HTML5画布Canvas', 350, 300, 700)
+  ctx.lineWidth = 2
+  ctx.font = '40px Verdana'
+  ctx.strokeText('----入门必备！', 580, 450, 700)
+
+  // 设置清除按钮：
+  clear.onclick = () => {
+    ctx.clearRect(0, 0, 700, 600) // 清除以(0,0)为起始点，宽700，高600的矩形里的内容
+    ctx.beginPath()
+  }
+</script>
